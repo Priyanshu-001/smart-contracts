@@ -26,11 +26,13 @@ contract NFT is Initializable, ERC721Upgradeable, ERC721URIStorageUpgradeable, O
         
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
+    function safeMint(address to, string memory uri) public returns(uint256) {
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
         _safeMint(to, tokenId);
         _setTokenURI(tokenId, uri);
+        return tokenId;
+
     }
 
     function _authorizeUpgrade(address newImplementation)
